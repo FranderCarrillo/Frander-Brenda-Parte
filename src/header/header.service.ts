@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Header } from './entities/header.entity';  
 import { CreateHeaderDto } from './dto/create-header.dto';
 import { UpdateHeaderDto } from './dto/update-header.dto';
 
 @Injectable()
 export class HeaderService {
-  create(createHeaderDto: CreateHeaderDto) {
-    return 'This action adds a new header';
+  constructor(
+    @InjectRepository(Header) 
+    private headerRepository: Repository<Header>,  // Usamos Repository<Header> para acceder a los métodos de TypeORM
+  ) {}
+
+  // Crear un nuevo header
+  async create(createHeaderDto: CreateHeaderDto): Promise<Header> {
+    const header = this.headerRepository.create(createHeaderDto);
+    return await this.headerRepository.save(header);
   }
 
-  findAll() {
-    return `This action returns all header`;
+  // Obtener todos los headers
+  async findAll(): Promise<Header[]> {
+    return await this.headerRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} header`;
+  // Obtener un header por ID
+  async findOne(id: number): Promise<Header> {
+    return await this.headerRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateHeaderDto: UpdateHeaderDto) {
-    return `This action updates a #${id} header`;
+  // Actualizar un header por ID
+  async update(id: number, updateHeaderDto: UpdateHeaderDto): Promise<Header> {
+    const header = await this.headerRepository.findOne({ where: { id } });
+    if (!header) {
+      throw new Error(`Header with ID ${id} not found`);
+    }
+    Object.assign(header, updateHeaderDto);
+    return await this.headerRepository.save(header);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} header`;
+  // Eliminar un header por ID
+  async remove(id: number): Promise<void> {
+    const header = await this.headerRepository.findOne({ where: { id } });
+    if (!header) {
+      throw new Error(`Header with ID ${id} not found`);
+    }
+    await this.headerRepository.remove(header);
   }
 }

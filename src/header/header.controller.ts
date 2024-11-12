@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { HeaderService } from './header.service';
 import { CreateHeaderDto } from './dto/create-header.dto';
 import { UpdateHeaderDto } from './dto/update-header.dto';
+import { Header } from './entities/header.entity';
 
 @Controller('header')
 export class HeaderController {
   constructor(private readonly headerService: HeaderService) {}
 
+  // Crear un nuevo header
   @Post()
-  create(@Body() createHeaderDto: CreateHeaderDto) {
+  async create(@Body() createHeaderDto: CreateHeaderDto): Promise<Header> {
     return this.headerService.create(createHeaderDto);
   }
 
+  // Obtener todos los headers
   @Get()
-  findAll() {
+  async findAll(): Promise<Header[]> {
     return this.headerService.findAll();
   }
 
+  // Obtener un header por ID
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.headerService.findOne(+id);
+  async findOne(@Param('id') id: number): Promise<Header> {
+    return this.headerService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHeaderDto: UpdateHeaderDto) {
-    return this.headerService.update(+id, updateHeaderDto);
+  // Actualizar un header por ID
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() updateHeaderDto: UpdateHeaderDto): Promise<Header> {
+    return this.headerService.update(id, updateHeaderDto);
   }
 
+  // Eliminar un header por ID
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.headerService.remove(+id);
+  async remove(@Param('id') id: number): Promise<void> {
+    return this.headerService.remove(id);
   }
 }

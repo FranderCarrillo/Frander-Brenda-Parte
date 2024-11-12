@@ -5,7 +5,7 @@ import {
   } from "typeorm";
   
   @Entity('header')
-  export class header {
+  export class Header {
     @PrimaryGeneratedColumn()
     id: number;
   

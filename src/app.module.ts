@@ -1,24 +1,24 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HeaderModule } from './header/header.module';
+import { Header } from './header/entities/header.entity';
+import { HeaderService } from './header/header.service';
+import { HeaderController } from './header/header.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306, 
-      username: 'root', 
-      password: '123456789', 
-      database: 'binarios', 
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, 
+      port: 3306,
+      username: 'root',
+      password: '123456789',
+      database: 'binarios',
+      entities: [Header],
+      synchronize: true,  
     }),
-    HeaderModule,
+    TypeOrmModule.forFeature([Header]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [HeaderService],
+  controllers: [HeaderController],
 })
 export class AppModule {}
