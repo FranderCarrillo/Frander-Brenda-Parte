@@ -10,7 +10,7 @@ import {
     id: number;
   
     @Column()
-    title: string;
+    tittle: string;
 
     @Column()
     description: string;

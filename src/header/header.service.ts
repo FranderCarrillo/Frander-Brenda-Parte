@@ -39,7 +39,7 @@ export class HeaderService {
   }
 
   // Eliminar un header por ID
-  async remove(id: number): Promise<void> {
+  async remove(id: number):  Promise<void> {
     const header = await this.headerRepository.findOne({ where: { id } });
     if (!header) {
       throw new Error(`Header with ID ${id} not found`);
