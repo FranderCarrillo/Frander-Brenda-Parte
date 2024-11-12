@@ -1,5 +1,5 @@
 export class CreateHeaderDto {
-    tittle: string;
+    title: string;
     description: string;
     image: string;
 }
