@@ -26,6 +26,12 @@ export class HeaderController {
     return this.headerService.findOne(id);
   }
 
+  // Obtener el header con ID 1 (ruta personalizada)
+  @Get('parte-jose-casa')
+  async getParteJoseCasa(): Promise<Header> {
+    return await this.headerService.findOne(1); // Suponiendo que el `id` es 1
+  }
+
   // Actualizar un header por ID
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateHeaderDto: UpdateHeaderDto): Promise<Header> {
