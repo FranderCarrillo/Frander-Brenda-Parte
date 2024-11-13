@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Header } from './header/entities/header.entity';
 import { HeaderService } from './header/header.service';
 import { HeaderController } from './header/header.controller';
+import { HeaderModule } from './header/header.module';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { HeaderController } from './header/header.controller';
       entities: [Header],
       synchronize: true,  
     }),
-    TypeOrmModule.forFeature([Header]),
+    HeaderModule
   ],
   providers: [HeaderService],
   controllers: [HeaderController],
