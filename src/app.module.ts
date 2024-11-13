@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Header } from './header/entities/header.entity';
-import { HeaderService } from './header/header.service';
-import { HeaderController } from './header/header.controller';
 import { HeaderModule } from './header/header.module';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { HeaderModule } from './header/header.module';
     }),
     HeaderModule
   ],
-  providers: [HeaderService],
-  controllers: [HeaderController],
+  providers: [AppService],
+  controllers: [AppController],
 })
 export class AppModule {}
