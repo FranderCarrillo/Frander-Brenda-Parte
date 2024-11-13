@@ -4,17 +4,17 @@ import {
     PrimaryGeneratedColumn,
   } from "typeorm";
   
-  @Entity('header')
+@Entity('header')
   export class Header {
-    @PrimaryGeneratedColumn()
-    id: number;
-  
-    @Column()
-    title: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    description: string;
+  @Column()
+  title: string;
 
-    @Column()
-    image: string;
-  }
+  @Column({ nullable: true }) // Permite que description sea opcional
+  description: string;
+
+  @Column({ nullable: true }) // Permite que image sea opcional
+  image: string;
+}
