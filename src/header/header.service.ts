@@ -13,9 +13,10 @@ export class HeaderService {
   ) {}
 
   
-  async create(createHeaderDto: CreateHeaderDto): Promise<Header> {
-    const header = this.headerRepository.create(createHeaderDto);
-    return await this.headerRepository.save(header);
+  create(createHeaderDto: CreateHeaderDto){
+    const newHeader = this.headerRepository.create(createHeaderDto);
+    this.headerRepository.save(newHeader);
+    return newHeader;
   }
 
  
@@ -28,7 +29,6 @@ export class HeaderService {
     return  this.headerRepository.findOne({ where: { id } });
   }
 
- 
     update(id: number, createHeaderDto: CreateHeaderDto){
       return this.headerRepository.update(id, createHeaderDto)
   }
