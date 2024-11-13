@@ -19,7 +19,6 @@ export class HeaderService {
     return newHeader;
   }
 
- 
   findAll() {
     return  this.headerRepository.find();
   }
